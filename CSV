@@ -1,0 +1,51 @@
+#CSV TUTORIAL
+
+import csv
+
+# with open ('names.csv', 'r') as csv_file:
+#     csv_reader = csv.reader(csv_file)
+
+#     # print (csv_file) #print object memory location
+
+#     for line in csv_file:  #prints each line in the names.csv entries as list
+#         # print (line)
+#         print (line[2])   #prints only the email in the file as email is in 2nd index
+
+
+# with open ('names.csv', 'r') as csv_file:
+#     csv_reader = csv.reader(csv_file)
+
+#     with open ('new_names.csv' , 'w') as new_file:
+#         csv_writer = csv.writer(new_file , delimiter = '-')  #delimiter is seperator in csv file, By default it is ',' .Other delimiter is '\t' (Tab)
+
+
+#         for line in csv_reader :
+#             csv_writer.writerow(line)    #writing all original lines as '-' demiliter
+
+
+# with open ('new_names.csv', 'r') as csv_file:
+#     csv_reader = csv.reader(csv_file, delimiter = '-')         #demiliter must match delimiter from which file is read.In this case file with tab delimiter is read with comma delimiter 
+
+#     for line in csv_reader:
+#         print (line)
+
+# with open ('names.csv', 'r') as csv_file:
+#     csv_reader = csv.DictReader(csv_file) #DictReader will seperate each entry as key value pair with the first entry as Key
+
+#     for line in csv_reader:
+#         # print (line)
+#         print (line['email']) #Gives all values of 'email' key
+
+
+with open ('names.csv', 'r') as csv_file:
+    csv_reader = csv.DictReader(csv_file) #DictReader will seperate each entry as key value pair with the first entry as Key
+
+    with open ('new_names.csv' , 'w') as new_file:
+        fieldnames = ['first_name' , 'last_name']  # top names in csv file
+        csv_writer = csv.DictWriter(new_file, fieldnames = fieldnames , delimiter = '\t')
+
+        csv_writer.writeheader()
+
+        for line in csv_reader:
+            del line['email']
+            csv_writer.writerow(line)
